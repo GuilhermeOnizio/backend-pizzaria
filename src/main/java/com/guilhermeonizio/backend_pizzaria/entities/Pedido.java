@@ -14,6 +14,10 @@ public class Pedido {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @ManyToMany
     @JoinTable(
             name = "pedido_pizza",
             joinColumns = @JoinColumn(name = "pedido_id"),
