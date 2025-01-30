@@ -5,6 +5,7 @@ import com.guilhermeonizio.backend_pizzaria.entities.Pizza;
 import com.guilhermeonizio.backend_pizzaria.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class PizzaService {
         return pizzaRepository.save(pizza);
     }
 
+    @Transactional
     public Pizza atualizarPizza(Long id, Pizza pizza) {
         Pizza pizzaExistente = buscarPizza(id);
         pizzaExistente.setNome(pizza.getNome());
