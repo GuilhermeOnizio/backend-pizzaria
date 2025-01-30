@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public class PizzaDTO {
+public class ClienteDTO {
 
     private Long id;
 
@@ -12,11 +12,10 @@ public class PizzaDTO {
     private String nome;
 
     @NotBlank(message = "Os ingredientes são obrigatórios")
-    private String ingredientes;
+    private String telefone;
 
-    @NotNull(message = "O preço é obrigatório")
-    @Positive(message = "O preço deve ser um valor positivo")
-    private Double preco;
+    @NotNull(message = "O endereço é obrigatório")
+    private String endereco;
 
     public Long getId() {
         return id;
@@ -34,19 +33,19 @@ public class PizzaDTO {
         this.nome = nome;
     }
 
-    public String getIngredientes() {
-        return ingredientes;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setIngredientes(String ingredientes) {
-        this.ingredientes = ingredientes;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
-    public Double getPreco() {
-        return preco;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setPreco(Double preco) {
-        this.preco = preco;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 }

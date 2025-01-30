@@ -1,8 +1,13 @@
 package com.guilhermeonizio.backend_pizzaria.controllers;
 
+import com.guilhermeonizio.backend_pizzaria.dto.ClienteDTO;
 import com.guilhermeonizio.backend_pizzaria.entities.Cliente;
 import com.guilhermeonizio.backend_pizzaria.services.ClienteService;
+import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,28 +20,31 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
-    public List<Cliente> listarClientes() {
+    public List<ClienteDTO> listarClientes() {
         return clienteService.listarClientes();
     }
 
     @GetMapping("/{id}")
-    public Cliente buscarCliente(@PathVariable Long id) {
+    public ClienteDTO buscarCliente(@PathVariable Long id) {
         return clienteService.buscarCliente(id);
     }
 
     @PostMapping
-    public Cliente criarCliente(@RequestBody Cliente cliente) {
-        return clienteService.criarCliente(cliente);
+    public ResponseEntity<ClienteDTO> criarCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO novoCliente = clienteService.criarCliente(clienteDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoCliente);
     }
 
     @PutMapping("/{id}")
-    public Cliente atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
-        return clienteService.atualizarCliente(id, cliente);
+    public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO clienteAtualizado = clienteService.atualizarCliente(id, clienteDTO);
+        return ResponseEntity.ok(clienteAtualizado);
     }
 
     @DeleteMapping("/{id}")
-    public void excluirCliente(@PathVariable Long id) {
+    public ResponseEntity<Void> excluirCliente(@PathVariable Long id) {
         clienteService.excluirCliente(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
